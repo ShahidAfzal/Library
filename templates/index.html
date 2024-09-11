@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+    {{ bootstrap.load_css() }}  <!-- Load Bootstrap CSS -->
+</head>
+<body class="container">
+<h1 class="my-4">My Library</h1>
+{% if books == []: %}
+    <p class="alert alert-warning">Library is empty.</p>
+{% else %}
+    <ul class="list-group">
+        {% for book in books %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ book.id}}: {{ book.title }} - {{ book.author }} - {{ book.rating }}/10</span>
+            <div>
+                <a href="{{ url_for('edit', id=book.id) }}" class="btn btn-primary btn-sm">Edit Rating</a>
+                <a href="{{ url_for('delete', id=book.id) }}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<a href="{{ url_for('add') }}" class="btn btn-success mt-3">Add New Book</a>
+{{ bootstrap.load_js() }}  <!-- Load Bootstrap JS -->
+</body>
+</html>
